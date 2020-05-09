@@ -1,4 +1,14 @@
-# Tutorial
+- [After the repository is created](#after-the-repository-is-created)
+  - [Managing branches](#managing-branches)
+    - [To list branches, just execute](#to-list-branches-just-execute)
+    - [Creating branches (3 methods)](#creating-branches-3-methods)
+  - [Create branch and make some edits](#create-branch-and-make-some-edits)
+    - [Stage changes and commit](#stage-changes-and-commit)
+    - [Pulling files out of stage](#pulling-files-out-of-stage)
+    - [.gitignore](#gitignore)
+- [Push to Github](#push-to-github)
+- [Github pull requests and merging](#github-pull-requests-and-merging)
+    - [To create a pull request](#to-create-a-pull-request)
 ### Some other resources:
 * [Github help](https://help.github.com/en)
 * [Github git cheatsheet](https://education.github.com/git-cheat-sheet-education.pdf)
@@ -81,6 +91,26 @@ git commit -m "Added some stuff to README!"
 ```
 * `-m` means message. Adding messages to a commit is **crucial** since it's a nice summary of the work that you have done
 
+### Pulling files out of stage
+If we accidentally stage a file that we __DO NOT__ want to commit, we can pull it out of the stage by executing
+```
+git restore --staged <filename>
+```
+We can also unstage __ALL__ in almost the same way as we do with add:
+```
+git restore --staged .
+```
+
+### .gitignore
+Git has a cool feature that allows you to ignore files that you __DO NOT WANT__ in your repository. For example, files with passwords, API keys, editor settings, local settings even whole entire directories. This file is called `.gitignore`
+Example contents of this file:
+```
+keys.txt
+*.rtf
+/build/
+```
+Note: `*.rtf causes git to ignore all rtf files`
+git 
 # Push to Github
 So far, all the work we have done is **LOCAL** to our machine and has not been shared with anyone else. To do that, we have to push it to Github. To push, we execute
 ```
@@ -96,8 +126,28 @@ Cool!
 So, for all the work to show up into master, it needs to be merged. Managing merges on github is pretty easy to do with pull requests. The basic idea behind them is to review proposed changes to master before they are made.
 ### To create a pull request
 1. Go to the repo. On the left side there is a drop-down selection for branches. Select your newly pushed branch
-2. After it is selected, click the "New pull request" button
-3. Fill out the form (what the commit does)
-4. Click "Create pull request"
+
+
+![Branch selection](images/01-selectbranch.png)
+
+![Branch selection](images/02-selectbranch.png)
+
+
+1. After it is selected, click the "New pull request" button
+
+
+![New pull request](images/03-pullrequest.png)
+
+
+3. Fill out the form (what the commit does) and create pull request
+
+
+![Pull requst](images/04-pullrequest.png)
+
+
+4. Merge it when reviewed
+
+
+![Merge pull request](images/05-pullrequest.png)
 
 After the pull request is reviewed by everyone, it can be merged!
