@@ -9,6 +9,14 @@
 - [Push to Github](#push-to-github)
 - [Github pull requests and merging](#github-pull-requests-and-merging)
     - [To create a pull request](#to-create-a-pull-request)
+- [fetch/pull and merge conflicts](#fetchpull-and-merge-conflicts)
+  - [fetch](#fetch)
+  - [pull](#pull)
+  - [merge conflicts!](#merge-conflicts)
+- [Customizing git](#customizing-git)
+    - [Change your name](#change-your-name)
+    - [Change your email](#change-your-email)
+    - [Cache your credentials (it is really annoying to type in your password a million times)](#cache-your-credentials-it-is-really-annoying-to-type-in-your-password-a-million-times)
 ### Some other resources:
 * [Github help](https://help.github.com/en)
 * [Github git cheatsheet](https://education.github.com/git-cheat-sheet-education.pdf)
@@ -151,3 +159,86 @@ So, for all the work to show up into master, it needs to be merged. Managing mer
 ![Merge pull request](images/05-pullrequest.png)
 
 After the pull request is reviewed by everyone, it can be merged!
+
+# fetch/pull and merge conflicts
+## fetch
+
+Executing `git fetch` on your currently checked out branch will essentially pull down __the fact that__ there were changes made in the __currently__ checked out branch
+
+This will pull down the differences between your __currently__ checked out branch and master
+```
+git fetch origin master
+```
+
+## pull
+Pull works similar to fetch, except that in addition to fetching the changes, it will attempt to __merge__ them
+
+This will attempt to merge changes from the remote
+```
+git pull
+```
+
+This will attempt to merge changes from the master branch, from the remote, into the __currently checked-out branch__
+```
+git pull origin master
+```
+## merge conflicts!
+Let's try to cause a merge conflict
+
+1. Create a new branch
+```
+git checkout -b newstuff
+```
+2. Add some stuff into the README.md file
+3. Add/Commit/Push
+
+```
+git add .
+git commit -m "Some stuff!"
+git push origin newstuff 
+```
+4. Merge with master on Github
+5. Switch to the readme-edits branch
+
+```
+git checkout readme-edits
+```
+6. Add some stuff into the README.md file
+7. Add/commit/push
+```
+git add .
+git commit -m "Some stuff!"
+git push origin readme-edits 
+```
+8. Attempt to merge on Github.. And...
+
+![Pull requst](images/06-merge.png)
+
+Fixing this:
+1. while on the readme-edits branch:
+```
+git pull origin master
+```
+2. Edit any conflicting files
+3. Add/commit/push
+4. You should be able to merge the readme-edits into master now
+
+# Customizing git
+### Change your name
+```
+git config --global user.name "Firstname Lastname"
+```
+
+### Change your email
+```
+git config --global user.email "email@somewhere.ru"
+```
+
+### Cache your credentials (it is really annoying to type in your password a million times)
+```
+git config --global credential.helper 'cache --timeout=3600'
+```
+
+> the --global flag will apply these settings to all repositories for YOUR user on YOUR computer
+> 
+> if you don't use the global flag, it will only apply to __the current repo__ that you are working with
